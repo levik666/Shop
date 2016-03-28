@@ -10,3 +10,4 @@ cache:
 deploy:
   provider: heroku
   api_key: "128b2d04-d15f-47cb-bd30-e2e86d3357e2"
+  app: shop75665
