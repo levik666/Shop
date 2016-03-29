@@ -46,7 +46,7 @@ dependencies {
     // For domain modeling + Spring Data JPA.
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('com.h2database:h2')
-    compile('org.projectlombok:lombok:1.16.6')
+    compile('org.projectlombok:lombok:1.16.8')
     compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 
     // Spring Data REST.
