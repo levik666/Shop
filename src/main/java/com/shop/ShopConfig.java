@@ -28,16 +28,10 @@ public class ShopConfig {
 
     @PostConstruct
     public void init() {
-        for (String eMail : USER_EMAILS) {
-            User user = new User();
-            user.setEmail(eMail);
-            userRepository.save(user);
-        }
-        for (Long sku : PRODUCTS) {
-            Product product = new Product();
-            product.setCode(sku);
-            productRepository.save(product);
-        }
+
+        USER_EMAILS.stream().forEach(s -> userRepository.save(User.of(s)));
+
+        PRODUCTS.stream().forEach(s -> productRepository.save(new Product(s)));
     }
 
 }
