@@ -8,7 +8,6 @@ buildscript {
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("io.spring.gradle:dependency-management-plugin:0.5.6.RELEASE")
-        classpath("com.github.rholder:gradle-one-jar:1.0.4")
 	}
 }
 
@@ -25,7 +24,6 @@ apply plugin: 'java'
 apply plugin: "idea"
 apply plugin: 'spring-boot'
 apply plugin: "io.spring.dependency-management"
-apply plugin: 'gradle-one-jar'
 
 jar {
 	baseName = 'shop'
@@ -80,13 +78,19 @@ asciidoctor {
     dependsOn test
 }
 
-task stage (type: OneJar){
-    dependsOn build
-    mainClass = 'com.shop.ShopApplication'
-    archiveName = 'shop.jar'
+task stage (dependsOn: ['clean', 'bootRepackage']){
 }
 
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.9'
+}
+
+bootRepackage {
+    it.mustRunAfter clean
+}
+
+bootRun {
+    it.dependsOn clean
+    it.mustRunAfter clean
 }
