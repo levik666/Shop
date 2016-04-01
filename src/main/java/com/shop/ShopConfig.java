@@ -2,9 +2,9 @@ package com.shop;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 
@@ -26,12 +26,14 @@ public class ShopConfig {
     @Autowired
     private CrudRepository<Product, Long> productRepository;
 
-    @PostConstruct
-    public void init() {
-
+    private void init() {
         USER_EMAILS.stream().forEach(s -> userRepository.save(User.of(s)));
-
         PRODUCTS.stream().forEach(s -> productRepository.save(new Product(s)));
+    }
+
+    @Bean
+    CommandLineRunner commandLineRunner(ShopConfig dataLoader) {
+        return args -> dataLoader.init();
     }
 
 }
